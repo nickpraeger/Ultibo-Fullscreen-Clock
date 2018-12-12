@@ -51,7 +51,7 @@ end;
 begin
   Thread1Execute:=0;
 
-   Console1:=ConsoleWindowCreate(ConsoleDeviceGetDefault,CONSOLE_POSITION_BOTTOM,False);
+//   Console1:=ConsoleWindowCreate(ConsoleDeviceGetDefault,CONSOLE_POSITION_BOTTOM,False);
 
    ThreadSetName(GetCurrentThreadId,'Example Thread1');
  {see if the RTC is available}
