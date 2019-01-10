@@ -37,12 +37,12 @@ function Thread1Execute(Parameter:Pointer):PtrInt;
 const
 
 
-int64: OneYear =365.2425*24*60*60*10000000;
-int64: OneMonth =30*24*60*60*10000000;
-int64: OneDay =24*60*60*10000000;
-int64: OneHour =60*60*10000000;
-int64: OneMin =60*10000000;
-int64: OneSec =10000000;
+OneYear:int64 =365.2425*24*60*60*10000000;
+OneMonth:int64 =30*24*60*60*10000000;
+OneDay:int64 =24*60*60*10000000;
+OneHour:int64 =60*60*10000000;
+OneMin:int64 =60*10000000;
+OneSec:int64 =10000000;
 
 
 
@@ -65,7 +65,7 @@ end;
 begin
   Thread1Execute:=0;
 
-//   Console1:=ConsoleWindowCreate(ConsoleDeviceGetDefault,CONSOLE_POSITION_BOTTOM,False);
+   Console1:=ConsoleWindowCreate(ConsoleDeviceGetDefault,CONSOLE_POSITION_BOTTOM,False);
 
    ThreadSetName(GetCurrentThreadId,'Example Thread1');
  {see if the RTC is available}
@@ -73,13 +73,14 @@ begin
      begin
      RTCyesno :=TRUE;
      Log('RTC Available');
-     Log('RTC Time is ' DateTimeToStr(Now));
+     Log(DateTimeToStr(Now));
+     end
  else
      begin
        RTCyesno :=FALSE;
        Log('RTC Not Available');
        RtcSetTime(131908059360000000); //2019
-       Log('RTC Time is now ' DateTimeToStr(Now));
+       Log(DateTimeToStr(Now));
      end;
 
   while True do
@@ -95,88 +96,52 @@ begin
                   end;
         'Y':  begin
                   Log('Y pressed, Increase year by 1');
-                  newDateTime: = RTCGetTime+OneYear;
+                  newDateTime:= RTCGetTime+OneYear;
                   end;
         'N': begin
                   Log('N pressed, Increase month by 1');
-                  newDateTime: = RTCGetTime+OneMonth;
+                  newDateTime:= RTCGetTime+OneMonth;
                   end;
         'D': begin
                      Log('D pressed, Increase day by 1');
-                     newDateTime: = RTCGetTime+OneDay;
+                     newDateTime:= RTCGetTime+OneDay;
                   end;
         'H': begin
                       Log('H pressed, Increase hour by 1');
-                      SetCurrentTimezone('Greenwich Standard Time ');
-                      newDateTime:= DateTimeToFileDate(IncHour(Now,1));  {increase hour by 1 when H is pressed}
-                      ClockSetTime(newDateTime,RTCyesno);
-                      SetCurrentTimezone('GMT Standard Time');
-                      Log
-                      end
+                      newDateTime:= RTCGetTime+OneHour;
+                  end;
         'M': begin
                       Log('M pressed, Increase minute by 1');
-                      SetCurrentTimezone('Greenwich Standard Time ');
-                      newDateTime:= DateTimeToFileDate(IncMinute(Now,1));  {increase minute by 1 when M is pressed}
-                      ClockSetTime(newDateTime,RTCyesno);
-                      SetCurrentTimezone('GMT Standard Time');
-                      Log(DateTimeToStr(Now));
+                      newDateTime:= RTCGetTime+OneMin;
                       end;
         'S': begin
-                      Log('S pressed, Increase second by 1');
-                      SetCurrentTimezone('Greenwich Standard Time ');
-                      newDateTime:= DateTimeToFileDate(IncSecond(Now,1));  {increase second by 1 when S is pressed}
-                      ClockSetTime(newDateTime,RTCyesno);
-                      SetCurrentTimezone('GMT Standard Time');
-                      Log(DateTimeToStr(Now));
-                      end;
+                        Log('S pressed, Increase second by 1');
+                        newDateTime:= RTCGetTime+OneSec;
+                        end;
         'y': begin
                 Log('y pressed, Decrease year by 1');
-                SetCurrentTimezone('Greenwich Standard Time ');
-                newDateTime:= DateTimeToFileDate(IncYear(Now,-1));  {decrease year by 1 when y is pressed}
-                ClockSetTime(newDateTime,RTCyesno);
-                SetCurrentTimezone('GMT Standard Time');
-                Log(DateTimeToStr(Now));
-                end;
+                  newDateTime:= RTCGetTime-OneYear;
+                  end;
       'n': begin
                 Log('n pressed, Decrease month by 1');
-                SetCurrentTimezone('Greenwich Standard Time ');
-                newDateTime:= DateTimeToFileDate(IncMonth(Now,-1));  {decrease month by 1 when n is pressed}
-                ClockSetTime(newDateTime,RTCyesno);
-                SetCurrentTimezone('GMT Standard Time');
-                Log(DateTimeToStr(Now));
-                end;
+                  newDateTime:= RTCGetTime-OneMonth;
+                  end;
       'd':  begin
                 Log('d pressed, Decrease day by 1');
-                SetCurrentTimezone('Greenwich Standard Time ');
-                newDateTime:= DateTimeToFileDate(IncDay(Now,-1));  {decrease day by 1 when d is pressed}
-                ClockSetTime(newDateTime,RTCyesno);
-                SetCurrentTimezone('GMT Standard Time');
-                Log(DateTimeToStr(Now));
-                end;
+                  newDateTime:= RTCGetTime-OneDay;
+                  end;
       'h': begin
                 Log('h pressed, Decrease hour by 1');
-                SetCurrentTimezone('Greenwich Standard Time ');
-                newDateTime:= DateTimeToFileDate(IncHour(Now,-1));  {decrease hour by 1 when h is pressed}
-                ClockSetTime(newDateTime,RTCyesno);
-                SetCurrentTimezone('GMT Standard Time');
-                Log(DateTimeToStr(Now));
-                end;
+                  newDateTime:= RTCGetTime-OneHour;
+                  end;
       'm': begin
                 Log('m pressed, Decrease minute by 1');
-                SetCurrentTimezone('Greenwich Standard Time ');
-                newDateTime:= DateTimeToFileDate(IncMinute(Now,-1));  {decrease minute by 1 when m is pressed}
-                ClockSetTime(newDateTime,RTCyesno);
-                SetCurrentTimezone('GMT Standard Time');
-                Log(DateTimeToStr(Now));
-                end;
+                  newDateTime:= RTCGetTime-OneMin;
+                  end;
       's': begin
                 Log('s pressed, Decrease second by 1');
-                SetCurrentTimezone('Greenwich Standard Time ');
-                newDateTime:= DateTimeToFileDate(IncSecond(Now,-1));  {decrease second by 1 when s is pressed}
-                ClockSetTime(newDateTime,RTCyesno);
-                SetCurrentTimezone('GMT Standard Time');
-                Log(DateTimeToStr(Now));
-                end;
+                  newDateTime:= RTCGetTime-OneSec;
+                  end;
      end;    {end of  case statement}
      RTCSetTime(RTCGetTime+newDateTime);
    end;
