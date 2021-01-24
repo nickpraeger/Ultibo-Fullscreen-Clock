@@ -106,16 +106,16 @@ begin
                      Log('D pressed, Increase day by 1');
                      newDateTime:= RTCGetTime+OneDay;
                   end;
-        'H': begin
-                      Log('H pressed, Increase hour by 1');
+        '7': begin
+                      Log('7 pressed, Increase hour by 1');
                       newDateTime:= RTCGetTime+OneHour;
                   end;
-        'M': begin
-                      Log('M pressed, Increase minute by 1');
+        '8': begin
+                      Log('8 pressed, Increase minute by 1');
                       newDateTime:= RTCGetTime+OneMin;
                       end;
-        'S': begin
-                        Log('S pressed, Increase second by 1');
+        '9': begin
+                        Log('9 pressed, Increase second by 1');
                         newDateTime:= RTCGetTime+OneSec;
                         end;
         'y': begin
@@ -130,16 +130,16 @@ begin
                 Log('d pressed, Decrease day by 1');
                   newDateTime:= RTCGetTime-OneDay;
                   end;
-      'h': begin
-                Log('h pressed, Decrease hour by 1');
+      '4': begin
+                Log('4 pressed, Decrease hour by 1');
                   newDateTime:= RTCGetTime-OneHour;
                   end;
-      'm': begin
-                Log('m pressed, Decrease minute by 1');
+      '5': begin
+                Log('5 pressed, Decrease minute by 1');
                   newDateTime:= RTCGetTime-OneMin;
                   end;
-      's': begin
-                Log('s pressed, Decrease second by 1');
+      '6': begin
+                Log('6 pressed, Decrease second by 1');
                   newDateTime:= RTCGetTime-OneSec;
                   end;
      end;    {end of  case statement}
